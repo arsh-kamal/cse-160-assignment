@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Assignment 1: Painting</title>
+  <style>
+    body {
+      font-family: serif;
+      margin: 20px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .canvasSection {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    #webgl {
+      border: 1px solid black;
+      margin-bottom: 20px;
+    }
+
+    .controls {
+      width: 400px;
+    }
+
+    .controlGroup {
+      margin-bottom: 18px;
+    }
+
+    .controlTitle {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .buttonRow {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .sliderRow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 6px;
+    }
+
+    .sliderRow label {
+      min-width: 55px;
+    }
+
+    .sliderRow input[type="range"] {
+      width: 120px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Assignment 1: Painting</h1>
+
+  <div class="canvasSection">
+    <canvas id="webgl" width="400" height="400">
+      Please use a browser that supports canvas.
+    </canvas>
+
+    <div class="controls">
+      <div class="controlGroup">
+        <div class="buttonRow">
+          <button id="clearButton">Clear Canvas</button>
+          <button id="drawPictureButton">Draw Picture</button>
+        </div>
+      </div>
+
+      <div class="controlGroup">
+        <div class="controlTitle">Drawing Mode:</div>
+        <div class="buttonRow">
+          <button id="pointButton">Points</button>
+          <button id="triangleButton">Triangles</button>
+          <button id="circleButton">Circles</button>
+        </div>
+      </div>
+
+      <div class="controlGroup">
+        <div class="controlTitle">Shape Color:</div>
+        <div class="sliderRow">
+          <label for="redSlide">Red</label>
+          <input type="range" id="redSlide" min="0" max="100" value="100">
+
+          <label for="greenSlide">Green</label>
+          <input type="range" id="greenSlide" min="0" max="100" value="100">
+
+          <label for="blueSlide">Blue</label>
+          <input type="range" id="blueSlide" min="0" max="100" value="100">
+        </div>
+      </div>
+
+      <div class="controlGroup">
+        <div class="sliderRow">
+          <label for="sizeSlide">Size</label>
+          <input type="range" id="sizeSlide" min="5" max="40" value="10">
+
+          <label for="segmentSlide">Segments</label>
+          <input type="range" id="segmentSlide" min="3" max="30" value="10">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="lib/webgl-utils.js"></script>
+  <script src="lib/webgl-debug.js"></script>
+  <script src="lib/cuon-utils.js"></script>
+  <script src="asg1.js"></script>
+</body>
+</html>
