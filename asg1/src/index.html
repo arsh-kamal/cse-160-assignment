@@ -10,13 +10,33 @@
     }
 
     h1 {
-      margin-bottom: 20px;
+      margin-bottom: 8px;
     }
 
-    .canvasSection {
+    .studentInfoTop {
+      margin-bottom: 18px;
+      font-size: 16px;
+    }
+
+    .studentInfoTop p {
+      margin: 4px 0;
+    }
+
+    .mainContent {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+    }
+
+    .leftSide {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      width: 430px;
+    }
+
+    .rightSide {
+      width: 360px;
     }
 
     #webgl {
@@ -53,60 +73,138 @@
     }
 
     .sliderRow label {
-      min-width: 55px;
+      min-width: 70px;
     }
 
     .sliderRow input[type="range"] {
       width: 120px;
+    }
+
+    .valueText {
+      min-width: 30px;
+      font-weight: bold;
+    }
+
+    .referenceSection {
+      border: 2px solid #4d8cff;
+      border-radius: 8px;
+      background-color: #eef4ff;
+      padding: 12px;
+      box-sizing: border-box;
+    }
+
+    .referenceSection h2 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      color: #1d4ed8;
+      font-size: 20px;
+    }
+
+    .referenceSection img {
+      width: 100%;
+      max-width: 100%;
+      border: 1px solid #999;
+      border-radius: 6px;
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .awesomeBox {
+      border-top: 1px solid #9bbcff;
+      padding-top: 12px;
+    }
+
+    .awesomeBox h3 {
+      margin: 0 0 8px 0;
+      color: #1d4ed8;
+      font-size: 18px;
+    }
+
+    .awesomeBox p {
+      margin: 0;
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
   <h1>Assignment 1: Painting</h1>
 
-  <div class="canvasSection">
-    <canvas id="webgl" width="400" height="400">
-      Please use a browser that supports canvas.
-    </canvas>
+  <div class="studentInfoTop">
+    <p><strong>Name:</strong> Arshdeep Kamal</p>
+    
+    <p><strong>Notes to Grader:</strong> Draw Picture shows my custom triangle rocket scene with my initial 'AK' integrated into the design. The paint tools still work separately.</p>
+  </div>
 
-    <div class="controls">
-      <div class="controlGroup">
-        <div class="buttonRow">
-          <button id="clearButton">Clear Canvas</button>
-          <button id="drawPictureButton">Draw Picture</button>
+  <div class="mainContent">
+    <div class="leftSide">
+      <canvas id="webgl" width="400" height="400">
+        Please use a browser that supports canvas.
+      </canvas>
+
+      <div class="controls">
+        <div class="controlGroup">
+          <div class="buttonRow">
+            <button id="clearButton">Clear Canvas</button>
+            <button id="drawPictureButton">Draw Picture</button>
+            <button id="randomColorButton">Random Color</button>
+          </div>
+        </div>
+
+        <div class="controlGroup">
+          <div class="controlTitle">Drawing Mode:</div>
+          <div class="buttonRow">
+            <button id="pointButton">Points</button>
+            <button id="triangleButton">Triangles</button>
+            <button id="circleButton">Circles</button>
+          </div>
+        </div>
+
+        <div class="controlGroup">
+          <div class="controlTitle">Shape Color:</div>
+          <div class="sliderRow">
+            <label for="redSlide">Red</label>
+            <input type="range" id="redSlide" min="0" max="100" value="100">
+            <span id="redValue" class="valueText">100</span>
+          </div>
+          <div class="sliderRow">
+            <label for="greenSlide">Green</label>
+            <input type="range" id="greenSlide" min="0" max="100" value="100">
+            <span id="greenValue" class="valueText">100</span>
+          </div>
+          <div class="sliderRow">
+            <label for="blueSlide">Blue</label>
+            <input type="range" id="blueSlide" min="0" max="100" value="100">
+            <span id="blueValue" class="valueText">100</span>
+          </div>
+        </div>
+
+        <div class="controlGroup">
+          <div class="sliderRow">
+            <label for="sizeSlide">Size</label>
+            <input type="range" id="sizeSlide" min="5" max="40" value="10">
+            <span id="sizeValue" class="valueText">10</span>
+          </div>
+          <div class="sliderRow">
+            <label for="segmentSlide">Segments</label>
+            <input type="range" id="segmentSlide" min="3" max="30" value="10">
+            <span id="segmentValue" class="valueText">10</span>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="controlGroup">
-        <div class="controlTitle">Drawing Mode:</div>
-        <div class="buttonRow">
-          <button id="pointButton">Points</button>
-          <button id="triangleButton">Triangles</button>
-          <button id="circleButton">Circles</button>
-        </div>
-      </div>
+    <div class="rightSide">
+      <div class="referenceSection">
+        <h2>Reference Image</h2>
+        <img src="rocket-sketch.jpg" alt="Hand-drawn rocket sketch">
 
-      <div class="controlGroup">
-        <div class="controlTitle">Shape Color:</div>
-        <div class="sliderRow">
-          <label for="redSlide">Red</label>
-          <input type="range" id="redSlide" min="0" max="100" value="100">
-
-          <label for="greenSlide">Green</label>
-          <input type="range" id="greenSlide" min="0" max="100" value="100">
-
-          <label for="blueSlide">Blue</label>
-          <input type="range" id="blueSlide" min="0" max="100" value="100">
-        </div>
-      </div>
-
-      <div class="controlGroup">
-        <div class="sliderRow">
-          <label for="sizeSlide">Size</label>
-          <input type="range" id="sizeSlide" min="5" max="40" value="10">
-
-          <label for="segmentSlide">Segments</label>
-          <input type="range" id="segmentSlide" min="3" max="30" value="10">
+        <div class="awesomeBox">
+          <h3>Awesomeness Feature</h3>
+          <p>
+            I added a random color button so I can quickly switch to a new brush color while drawing.
+            I also show the live slider values and use a space-style background when the rocket scene is drawn,
+            which makes the whole project feel more interactive and polished.
+          </p>
         </div>
       </div>
     </div>

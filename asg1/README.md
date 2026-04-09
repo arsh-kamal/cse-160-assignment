@@ -1,0 +1,3 @@
+*** DESCRIPTION ***
+
+For this assignment i follow the exact instruction listen in canvas assignment page and when you will click the link you will see assignment title, my name and you have to slide the page down a little bit to see shape size and segment. It have slider with reader points to it so that you can see the difference properly and it also slider in colors so by default all three colors will be on 100 you have to change the slider in order to get new color. Thank you.

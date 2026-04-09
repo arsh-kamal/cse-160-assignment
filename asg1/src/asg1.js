@@ -33,6 +33,9 @@ let g_selectedColor = [1.0, 1.0, 1.0, 1.0];
 let g_selectedSize = 10.0;
 let g_selectedSegments = 10;
 
+let g_backgroundColor = [0.0, 0.0, 0.0, 1.0];
+let g_showPicture = false;
+
 class Point {
   constructor() {
     this.position = [0.0, 0.0];
@@ -114,11 +117,11 @@ class Circle {
 }
 
 function drawTriangle(vertices) {
-  let n = 3;
+  const n = 3;
 
   let vertexBuffer = gl.createBuffer();
   if (!vertexBuffer) {
-    console.log('Failed to create the buffer object');
+    console.log('Failed to create buffer');
     return;
   }
 
@@ -135,23 +138,203 @@ function drawColoredTriangle(vertices, color) {
   drawTriangle(vertices);
 }
 
+function drawStar(cx, cy, s, color) {
+  drawColoredTriangle([cx, cy + s, cx - s * 0.42, cy, cx + s * 0.42, cy], color);
+  drawColoredTriangle([cx, cy - s, cx - s * 0.42, cy, cx + s * 0.42, cy], color);
+}
+
+function drawRocketScene() {
+
+  // ── STARS ────────────────────────────────────────────────────────────────
+  drawStar(-0.72,  0.75, 0.07, [1.00, 0.82, 0.28, 1.0]);
+  drawStar(-0.55,  0.30, 0.04, [0.60, 0.88, 1.00, 1.0]);
+  drawStar( 0.72,  0.55, 0.05, [0.60, 0.88, 1.00, 1.0]);
+  drawStar( 0.68, -0.12, 0.05, [1.00, 0.82, 0.28, 1.0]);
+  drawStar(-0.58, -0.65, 0.04, [0.60, 0.88, 1.00, 1.0]);
+  drawStar( 0.28, -0.82, 0.04, [1.00, 0.60, 0.20, 1.0]);
+
+  // ── LEFT FIN ─────────────────────────────────────────────────────────────
+  drawColoredTriangle(
+    [-0.20,  0.00,   -0.68, -0.55,   -0.20, -0.42],
+    [1.00, 0.22, 0.22, 1.0]
+  );
+  drawColoredTriangle(
+    [-0.20,  0.00,   -0.20, -0.42,   -0.28, -0.22],
+    [0.60, 0.05, 0.05, 1.0]
+  );
+
+  // ── RIGHT FIN ────────────────────────────────────────────────────────────
+  drawColoredTriangle(
+    [ 0.20,  0.00,    0.68, -0.55,    0.20, -0.42],
+    [1.00, 0.22, 0.22, 1.0]
+  );
+  drawColoredTriangle(
+    [ 0.20,  0.00,    0.20, -0.42,    0.28, -0.22],
+    [0.60, 0.05, 0.05, 1.0]
+  );
+
+  // ── ROCKET BODY lower ────────────────────────────────────────────────────
+  drawColoredTriangle(
+    [-0.20, -0.40,    0.20, -0.40,   -0.20,  0.00],
+    [0.90, 0.90, 0.94, 1.0]
+  );
+  drawColoredTriangle(
+    [ 0.20, -0.40,   -0.20,  0.00,    0.20,  0.00],
+    [0.80, 0.80, 0.88, 1.0]
+  );
+
+  // ── ROCKET BODY upper ────────────────────────────────────────────────────
+  drawColoredTriangle(
+    [-0.20,  0.00,    0.20,  0.00,   -0.13,  0.42],
+    [0.92, 0.92, 0.96, 1.0]
+  );
+  drawColoredTriangle(
+    [ 0.20,  0.00,   -0.13,  0.42,    0.13,  0.42],
+    [0.82, 0.82, 0.88, 1.0]
+  );
+
+  // ── NOSE CONE ────────────────────────────────────────────────────────────
+  drawColoredTriangle(
+    [-0.13, 0.42,    0.13, 0.42,    0.00, 0.86],
+    [1.00, 0.22, 0.22, 1.0]
+  );
+  drawColoredTriangle(
+    [-0.04, 0.52,    0.00, 0.86,    0.00, 0.52],
+    [1.00, 0.60, 0.60, 1.0]
+  );
+
+  // ── NOZZLE ───────────────────────────────────────────────────────────────
+  drawColoredTriangle(
+    [-0.10, -0.40,    0.10, -0.40,   -0.05, -0.52],
+    [0.22, 0.30, 0.50, 1.0]
+  );
+  drawColoredTriangle(
+    [ 0.10, -0.40,   -0.05, -0.52,    0.05, -0.52],
+    [0.30, 0.38, 0.60, 1.0]
+  );
+
+  // ── FLAME ────────────────────────────────────────────────────────────────
+  drawColoredTriangle(
+    [-0.14, -0.52,    0.14, -0.52,    0.00, -0.95],
+    [1.00, 0.48, 0.08, 1.0]
+  );
+  drawColoredTriangle(
+    [-0.05, -0.52,   -0.28, -0.62,   -0.02, -0.70],
+    [1.00, 0.52, 0.10, 1.0]
+  );
+  drawColoredTriangle(
+    [ 0.05, -0.52,    0.28, -0.62,    0.02, -0.70],
+    [1.00, 0.52, 0.10, 1.0]
+  );
+  drawColoredTriangle(
+    [-0.07, -0.52,    0.07, -0.52,    0.00, -0.76],
+    [1.00, 0.82, 0.18, 1.0]
+  );
+  drawColoredTriangle(
+    [-0.03, -0.52,    0.03, -0.52,    0.00, -0.62],
+    [1.00, 0.96, 0.72, 1.0]
+  );
+
+  // LETTER A
+  const gold = [1.00, 0.78, 0.08, 1.0];
+
+  drawColoredTriangle(
+    [-0.13,  0.00,   -0.07,  0.00,   -0.19, -0.38],
+    gold
+  );
+  drawColoredTriangle(
+    [-0.07,  0.00,   -0.19, -0.38,   -0.15, -0.38],
+    gold
+  );
+
+  drawColoredTriangle(
+    [-0.13,  0.00,   -0.05, -0.38,   -0.01, -0.38],
+    gold
+  );
+  drawColoredTriangle(
+    [-0.13,  0.00,   -0.07,  0.00,   -0.05, -0.38],
+    gold
+  );
+
+  drawColoredTriangle(
+    [-0.17, -0.20,   -0.03, -0.20,   -0.17, -0.26],
+    gold
+  );
+  drawColoredTriangle(
+    [-0.03, -0.20,   -0.17, -0.26,   -0.03, -0.26],
+    gold
+  );
+
+  // LETTER K
+  drawColoredTriangle(
+    [ 0.02,  0.00,    0.07,  0.00,    0.07, -0.38],
+    gold
+  );
+  drawColoredTriangle(
+    [ 0.02,  0.00,    0.02, -0.38,    0.07, -0.38],
+    gold
+  );
+
+  drawColoredTriangle(
+    [ 0.07, -0.14,    0.07, -0.19,    0.19,  0.00],
+    gold
+  );
+  drawColoredTriangle(
+    [ 0.07, -0.19,    0.19,  0.00,    0.19, -0.05],
+    gold
+  );
+
+  drawColoredTriangle(
+    [ 0.07, -0.19,    0.07, -0.24,    0.19, -0.38],
+    gold
+  );
+  drawColoredTriangle(
+    [ 0.07, -0.24,    0.19, -0.33,    0.19, -0.38],
+    gold
+  );
+}
+
+function setRandomColor() {
+  let r = Math.floor(Math.random() * 101);
+  let g = Math.floor(Math.random() * 101);
+  let b = Math.floor(Math.random() * 101);
+
+  if (r > 85 && g > 85 && b > 85) {
+    r = 20;
+    g = 70;
+    b = 100;
+  }
+
+  g_selectedColor = [r / 100, g / 100, b / 100, 1.0];
+
+  document.getElementById('redSlide').value = r;
+  document.getElementById('greenSlide').value = g;
+  document.getElementById('blueSlide').value = b;
+
+  updateSliderDisplay('redValue', r);
+  updateSliderDisplay('greenValue', g);
+  updateSliderDisplay('blueValue', b);
+
+  console.log('Random color set to:', g_selectedColor);
+}
+
 function drawPicture() {
+  g_showPicture = true;
+  g_backgroundColor = [0.05, 0.08, 0.18, 1.0];
   renderAllShapes();
+}
 
-  // Simple starter picture: house + roof + sun
-  drawColoredTriangle([-0.5, -0.2,  0.0, -0.2, -0.5,  0.3], [0.7, 0.4, 0.2, 1.0]);
-  drawColoredTriangle([ 0.0, -0.2,  0.0,  0.3, -0.5,  0.3], [0.7, 0.4, 0.2, 1.0]);
+function setBackgroundColor() {
+  gl.clearColor(
+    g_backgroundColor[0],
+    g_backgroundColor[1],
+    g_backgroundColor[2],
+    g_backgroundColor[3]
+  );
+}
 
-  drawColoredTriangle([-0.55, 0.3,  0.05, 0.3, -0.25, 0.6], [0.8, 0.0, 0.0, 1.0]);
-
-  drawColoredTriangle([-0.3, -0.2, -0.15, -0.2, -0.3, 0.05], [0.4, 0.2, 0.1, 1.0]);
-  drawColoredTriangle([-0.15, -0.2, -0.15, 0.05, -0.3, 0.05], [0.4, 0.2, 0.1, 1.0]);
-
-  drawColoredTriangle([-0.1, 0.05,  0.0, 0.05, -0.1, 0.15], [0.2, 0.7, 1.0, 1.0]);
-  drawColoredTriangle([ 0.0, 0.05,  0.0, 0.15, -0.1, 0.15], [0.2, 0.7, 1.0, 1.0]);
-
-  drawColoredTriangle([0.45, 0.55, 0.62, 0.55, 0.45, 0.72], [1.0, 0.9, 0.0, 1.0]);
-  drawColoredTriangle([0.62, 0.55, 0.62, 0.72, 0.45, 0.72], [1.0, 0.9, 0.0, 1.0]);
+function updateSliderDisplay(id, value) {
+  document.getElementById(id).textContent = value;
 }
 
 function setupWebGL() {
@@ -192,11 +375,17 @@ function connectVariablesToGLSL() {
 function addActionsForHtmlUI() {
   document.getElementById('clearButton').onclick = function() {
     g_shapesList = [];
+    g_showPicture = false;
+    g_backgroundColor = [0.0, 0.0, 0.0, 1.0];
     renderAllShapes();
   };
 
   document.getElementById('drawPictureButton').onclick = function() {
     drawPicture();
+  };
+
+  document.getElementById('randomColorButton').onclick = function() {
+    setRandomColor();
   };
 
   document.getElementById('pointButton').onclick = function() {
@@ -213,22 +402,27 @@ function addActionsForHtmlUI() {
 
   document.getElementById('redSlide').oninput = function() {
     g_selectedColor[0] = this.value / 100;
+    updateSliderDisplay('redValue', this.value);
   };
 
   document.getElementById('greenSlide').oninput = function() {
     g_selectedColor[1] = this.value / 100;
+    updateSliderDisplay('greenValue', this.value);
   };
 
   document.getElementById('blueSlide').oninput = function() {
     g_selectedColor[2] = this.value / 100;
+    updateSliderDisplay('blueValue', this.value);
   };
 
   document.getElementById('sizeSlide').oninput = function() {
     g_selectedSize = Number(this.value);
+    updateSliderDisplay('sizeValue', this.value);
   };
 
   document.getElementById('segmentSlide').oninput = function() {
     g_selectedSegments = Number(this.value);
+    updateSliderDisplay('segmentValue', this.value);
   };
 }
 
@@ -255,7 +449,7 @@ function click(ev) {
 }
 
 function handleMouseMove(ev) {
-  if (ev.buttons === 1) {
+  if (ev.buttons === 1 && ev.target === canvas) {
     click(ev);
   }
 }
@@ -272,7 +466,12 @@ function convertCoordinatesEventToGL(ev) {
 }
 
 function renderAllShapes() {
+  setBackgroundColor();
   gl.clear(gl.COLOR_BUFFER_BIT);
+
+  if (g_showPicture) {
+    drawRocketScene();
+  }
 
   for (let i = 0; i < g_shapesList.length; i++) {
     g_shapesList[i].render();
@@ -287,7 +486,13 @@ function main() {
   canvas.onmousedown = click;
   canvas.onmousemove = handleMouseMove;
 
-  gl.clearColor(0.0, 0.0, 0.0, 1.0);
+  updateSliderDisplay('redValue', 100);
+  updateSliderDisplay('greenValue', 100);
+  updateSliderDisplay('blueValue', 100);
+  updateSliderDisplay('sizeValue', 10);
+  updateSliderDisplay('segmentValue', 10);
+
+  setBackgroundColor();
   gl.clear(gl.COLOR_BUFFER_BIT);
 }
 
