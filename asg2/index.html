@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Assignment 2 - Blocky Pig</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    .main-layout {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+    }
+
+    .canvas-section {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .right-panel {
+      width: 280px;
+      padding: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f7f7f7;
+    }
+
+    .control-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+    }
+
+    button {
+      margin-right: 8px;
+      margin-top: 6px;
+      padding: 6px 10px;
+      cursor: pointer;
+    }
+
+    #fps {
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Assignment 2 - Blocky Pig</h1>
+
+  <div class="main-layout">
+    <div class="canvas-section">
+      <canvas id="webgl" width="500" height="500">
+        Please use a browser that supports canvas.
+      </canvas>
+
+      <div class="control-group">
+        <label for="globalRotationSlide">Global Rotation:</label>
+        <input type="range" min="-180" max="180" value="0" id="globalRotationSlide">
+      </div>
+
+      <div class="control-group">
+        <label for="upperLegSlide">Upper Leg Joint:</label>
+        <input type="range" min="-45" max="45" value="0" id="upperLegSlide">
+      </div>
+
+      <div class="control-group">
+        <label for="lowerLegSlide">Lower Leg Joint:</label>
+        <input type="range" min="-45" max="45" value="0" id="lowerLegSlide">
+      </div>
+
+      <div class="control-group">
+        <label for="footSlide">Foot Joint:</label>
+        <input type="range" min="-45" max="45" value="0" id="footSlide">
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <h2>Extra Controls</h2>
+
+      <div class="control-group">
+        <label for="headSlide">Head Joint:</label>
+        <input type="range" min="-45" max="45" value="0" id="headSlide">
+      </div>
+
+      <div class="control-group">
+        <label for="tailSlide">Tail Joint:</label>
+        <input type="range" min="-90" max="90" value="0" id="tailSlide">
+      </div>
+
+      <div class="control-group">
+        <label for="backLegSlide">Back Leg Joint:</label>
+        <input type="range" min="-45" max="45" value="0" id="backLegSlide">
+      </div>
+
+      <div class="control-group">
+        <button id="animationOnButton">Animation ON</button>
+        <button id="animationOffButton">Animation OFF</button>
+        <button id="resetButton">Reset View</button>
+      </div>
+
+      <p>Drag mouse on canvas to rotate pig.</p>
+      <p>Shift + click on canvas for poke animation.</p>
+
+      <p id="fps">FPS: --</p>
+    </div>
+  </div>
+
+  <script src="../lib/cuon-utils.js"></script>
+  <script src="../lib/cuon-matrix.js"></script>
+  <script src="Cube.js"></script>
+  <script src="Cylinder.js"></script>
+  <script src="asg2.js"></script>
+</body>
+</html>
