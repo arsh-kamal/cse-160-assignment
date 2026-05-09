@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Assignment 3 - Blocky World</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    #webgl {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+      cursor: crosshair;
+    }
+
+    #ui {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.65);
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.45;
+      z-index: 10;
+    }
+
+    #story {
+      margin-top: 8px;
+      color: #ffd86b;
+    }
+
+    #status {
+      margin-top: 8px;
+      color: #8eff8e;
+    }
+
+    #fps {
+      margin-top: 8px;
+      color: #9fd3ff;
+    }
+
+    #movieOverlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    #topBar,
+    #bottomBar {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 90px;
+      background: black;
+    }
+
+    #topBar {
+      top: 0;
+    }
+
+    #bottomBar {
+      bottom: 0;
+    }
+
+    #storyBox {
+      position: absolute;
+      left: 50%;
+      bottom: 35px;
+      transform: translateX(-50%);
+      width: 70%;
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #ffd86b;
+      border-radius: 14px;
+      padding: 18px;
+      color: white;
+      font-size: 20px;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(255, 216, 107, 0.8);
+    }
+
+    #guideFace {
+      font-size: 42px;
+      margin-bottom: 8px;
+    }
+
+    #playAgain {
+      display: none;
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      z-index: 25;
+      background: rgba(0, 0, 0, 0.75);
+      color: #ffd86b;
+      padding: 14px;
+      border-radius: 10px;
+      border: 2px solid #ffd86b;
+      font-size: 18px;
+    }
+  </style>
+</head>
+
+<body onload="main()">
+  <canvas id="webgl" width="1000" height="700">
+    Please use a browser that supports canvas.
+  </canvas>
+
+  <div id="ui">
+    <b>Assignment 3: Blocky World</b><br>
+    W/A/S/D = move<br>
+    Q/E = rotate camera<br>
+    Mouse drag = look around<br>
+    Mouse click = select/unselect block<br>
+    Arrow Up/Down = look up/down<br>
+    Z/X = zoom in/out<br>
+    Space = jump / climb stairs<br>
+    F = add block to selected cell<br>
+    R = remove selected block<br>
+    C = reset/play again<br>
+    M = exit story mode<br>
+
+    <div id="story">
+      Story: Follow the brown stairs into the stone tower. Reach the glowing block at the top.
+    </div>
+
+    <div id="status">
+      Follow the brown stairs. Use Space + W to climb.
+    </div>
+
+    <div id="fps">
+      FPS: checking...
+    </div>
+  </div>
+
+  <div id="movieOverlay">
+    <div id="topBar"></div>
+    <div id="bottomBar"></div>
+
+    <div id="storyBox">
+      <div id="guideFace">🧙‍♂️</div>
+      <div id="storyText">
+        Welcome, explorer! Your mission is to reach the glowing block.
+      </div>
+    </div>
+  </div>
+
+  <div id="playAgain">
+    Press C to play again.
+  </div>
+
+  <script src="lib/cuon-matrix.js"></script>
+  <script src="lib/cuon-utils.js"></script>
+
+  <script src="Camera.js"></script>
+  <script src="Cube.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
